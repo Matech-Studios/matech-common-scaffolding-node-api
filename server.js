@@ -17,6 +17,10 @@ app.use(express.urlencoded({
 // app.use('/api/users', users);
 // app.use('/api/auth', auth);
 
+app.use('/', (req, res) => {
+    res.json('API setup correctly! You can remove this route now.')
+});
+
 /* End Routes */
 
 const port = process.env.PORT || 3000;
