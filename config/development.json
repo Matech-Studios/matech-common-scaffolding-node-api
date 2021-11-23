@@ -1,0 +1,12 @@
+{
+    "name": "API For The Some-Company-Project",
+    "configDB": {
+        "mongo": {
+            "host": "mongodb://localhost:27017/db_name"
+        }
+    },
+    "configToken": {
+        "seed": "secret",
+        "expiration": "24h"
+    }
+}
