@@ -2,7 +2,9 @@
 
 ## Node version
 
-> [node_version_here]
+> 8.17.0
+
+`We should update this to a newer version.`
 
 ## Pre-requisites
 
