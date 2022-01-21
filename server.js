@@ -1,7 +1,7 @@
 const express = require('express');
-// const users = require('./routes/users');
+const users = require('./api/controllers/users');
 // const auth = require('./routes/auth');
-const db = require('./db/db_connection');
+const db = require('./repository/db/db_connection');
 
 db.connect();
 
@@ -14,7 +14,7 @@ app.use(express.urlencoded({
 
 /* Routes Setup */
 
-// app.use('/api/users', users);
+app.use('/api/v1/users', users);
 // app.use('/api/auth', auth);
 
 app.use('/', (req, res) => {

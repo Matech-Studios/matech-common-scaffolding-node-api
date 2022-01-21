@@ -26,3 +26,5 @@ For PRD, configure `production.json` accordingly.
 npm install
 node server.js
 ```
+
+Open a browser or Postman: http://
