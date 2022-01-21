@@ -1,12 +1,13 @@
 const express = require('express');
 const routes = express.Router();
 const verifyToken = require('../middlewares/auth');
-const userSchemaValidation = require('../validations/user_schema_validation');
+const userValidations = require('../validations/user_validations');
 const userService = require('../../service/user_service');
 
 routes.get('/', async (req, res) => {
     
-    let result = userService.listActiveUsers();
+    try {
+        let result = userService.listActiveUsers();
 
     result
         .then(users => {
@@ -17,24 +18,23 @@ routes.get('/', async (req, res) => {
                 error: err
             });
         });
+
+    } catch(e) {
+        next(e);
+    }
 });
 
-routes.post('/', async (req, res) => {
-    let body = req.body;
-
-    const user = await userService.findByEmail(body.email);
+routes.post('/', userValidations.validateUser, async (req, res) => {
     
-    if(user) {
-        return res.status(400).json({ message: 'User already exists.' });
-    }
+    try {
+        let body = req.body;
 
-    // this validation could be moved to a middleware
-    const {error, value} = userSchemaValidation.validate({
-        name: body.name,
-        email: body.email
-    });
+        const user = await userService.findByEmail(body.email);
+        
+        if(user) {
+            return res.status(400).json({ message: 'User already exists.' });
+        }
 
-    if(!error) {
         let result = userService.createUser(body);
 
         result
@@ -47,26 +47,49 @@ routes.post('/', async (req, res) => {
             .catch(err => {
                 res.status(400).json({ err });
             });
-    } else {
-        res.status(400).json({
-            error
-        })
+        
+    } catch(e) {
+        next(e);
     }
 });
 
-routes.put('/:email', verifyToken, async (req, res) => {
+routes.put('/:email', [userValidations.validateUserEmail], async (req, res) => {
     
-    // this validation could be moved to a middleware
-    const {error, value} = userSchemaValidation.validate({
-        name: req.body.name
-    });
-
-    if(!error) {
+    try {
+        
         let result = userService.updateUser(req.params.email, req.body);
 
         result
             .then(user => {
-                res.json({
+                if(user) {
+                    res.json({
+                        name: user.name,
+                        email: user.email
+                    });
+                } else {
+                    res.status(400).json({
+                        err: "User not found"
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(400).json({
+                    err
+                });
+            });
+    } catch(e) {
+        next(e);
+    }
+});
+
+routes.delete('/:email', async (req, res) => {
+    
+    try {
+        let result = userService.deactivateUser(req.params.email);
+
+        result
+            .then(user => {
+                return res.json({
                     name: user.name,
                     email: user.email
                 })
@@ -74,30 +97,11 @@ routes.put('/:email', verifyToken, async (req, res) => {
             .catch(err => {
                 res.status(400).json({
                     err
-                })
+                });
             });
-    } else {
-        res.status(400).json({
-            error
-        })
-    }    
-});
-
-routes.delete('/:email', async (req, res) => {
-    let result = userService.deactivateUser(req.params.email);
-
-    result
-        .then(user => {
-            return res.json({
-                name: user.name,
-                email: user.email
-            })
-        })
-        .catch(err => {
-            res.status(400).json({
-                err
-            })
-        });
+    } catch (e) {
+        next(e);
+    }
 });
 
 module.exports = routes;
