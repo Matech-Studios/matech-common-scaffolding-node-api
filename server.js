@@ -1,6 +1,6 @@
 const express = require('express');
 const users = require('./api/controllers/users');
-// const auth = require('./routes/auth');
+const auth = require('./api/controllers/auth');
 const db = require('./repository/db/db_connection');
 
 db.connect();
@@ -15,7 +15,7 @@ app.use(express.urlencoded({
 /* Routes Setup */
 
 app.use('/api/v1/users', users);
-// app.use('/api/auth', auth);
+app.use('/api/v1/auth', auth);
 
 app.use('/', (req, res) => {
     res.json('API setup correctly! You can remove this route now.')

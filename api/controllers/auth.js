@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const routes = express.Router();
 const User = require('../../repository/models/user_model');
 const config = require('config');
@@ -14,8 +14,7 @@ routes.post('/', (req, res) => {
         .then(dbData => {
             if(dbData) {
 
-                // const validPassword = bcrypt.compareSync(req.body.password, dbData.password); 
-                const validPassword = true;
+                const validPassword = bcrypt.compareSync(req.body.password, dbData.password); 
                 
                 if(!validPassword) {
                     return res.status(400).json({

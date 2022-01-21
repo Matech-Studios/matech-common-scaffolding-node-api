@@ -1,4 +1,4 @@
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const User = require('../repository/models/user_model');
 
 module.exports = {
@@ -27,9 +27,8 @@ module.exports = {
     
     createUser: async (body) => {
     
-        // let hashedPassword = bcrypt.hashSync(body.password, 10);
-        let hashedPassword = '123456';
-    
+        let hashedPassword = bcrypt.hashSync(body.password, 10);
+        
         let user = new User({
             email:      body.email,
             name:       body.name,
