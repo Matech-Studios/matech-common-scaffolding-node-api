@@ -6,6 +6,8 @@ const userService = require('../../service/user_service');
 
 routes.get('/', async (req, res) => {
     
+    // #swagger.tags = ['users']
+
     try {
         let result = userService.listActiveUsers();
 
@@ -26,6 +28,8 @@ routes.get('/', async (req, res) => {
 
 routes.post('/', userValidations.validateUser, async (req, res) => {
     
+    // #swagger.tags = ['users']
+
     try {
         let body = req.body;
 
@@ -55,6 +59,8 @@ routes.post('/', userValidations.validateUser, async (req, res) => {
 
 routes.put('/:email', [userValidations.validateUserEmail], async (req, res) => {
     
+    // #swagger.tags = ['users']
+    
     try {
         
         let result = userService.updateUser(req.params.email, req.body);
@@ -82,7 +88,9 @@ routes.put('/:email', [userValidations.validateUserEmail], async (req, res) => {
     }
 });
 
-routes.delete('/:email', async (req, res) => {
+routes.delete('/:email', [verifyToken], async (req, res) => {
+    
+    // #swagger.tags = ['users']
     
     try {
         let result = userService.deactivateUser(req.params.email);

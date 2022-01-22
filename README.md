@@ -24,7 +24,7 @@ For PRD, configure `production.json` accordingly.
 
 ```
 npm install
-node server.js
+npm start
 ```
 
-Open a browser or Postman: http://
+Open a browser or Postman: http://localhost:3000/api/v1/users
