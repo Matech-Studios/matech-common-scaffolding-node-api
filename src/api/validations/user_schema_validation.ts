@@ -1,4 +1,4 @@
-const Joi = require('joi');
+import * as Joi from 'joi';
 
 const userSchemaValidation = Joi.object({
     name: Joi.string()
@@ -13,4 +13,4 @@ const userSchemaValidation = Joi.object({
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 });
 
-module.exports = userSchemaValidation;
+export default userSchemaValidation;

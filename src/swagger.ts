@@ -1,17 +1,16 @@
-const swaggerAutogen = require('swagger-autogen')()
-const swaggerUi = require('swagger-ui-express');
-const { version } = require('./package.json');
+const swaggerAutogen = require('swagger-autogen')();
+import { version } from '../package.json';
 
 const swaggerDefinition = {
     info: {
         title: 'REST API Docs',
-        version
+        version,
     },
     schemes: ['http', 'https'],
     consumes: ['application/json'],
     produces: ['application/json'],
     securityDefinitions: {
-        apiKeyAuth:{
+        apiKeyAuth: {
             type: "apiKey",
             in: "header",       // can be "header", "query" or "cookie"
             name: "Authorization",
@@ -19,11 +18,12 @@ const swaggerDefinition = {
     }
 };
 
-const outputFile = './swagger_output.json';
+const outputFile = './dist/src/swagger_output.json';
 const endpointsFiles = [
-    './server.js',
+    './dist/src/server.js',
 ];
 
-swaggerAutogen(outputFile, endpointsFiles, swaggerDefinition).then(() => {
-    require('./server')     // Your project's root file
-});
+swaggerAutogen(outputFile, endpointsFiles, swaggerDefinition)
+    .then(async () => {
+        await import('./server')     // Your project's root file
+    });
