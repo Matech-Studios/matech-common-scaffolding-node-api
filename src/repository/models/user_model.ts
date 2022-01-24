@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
+import UserDto from '../../core/interfaces/user_interface';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema<UserDto>({
     email: {
         type: String,
         required: true,
-        unique: true 
+        unique: true
     },
     name: {
         type: String,
@@ -25,4 +26,4 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default model('User', userSchema);
