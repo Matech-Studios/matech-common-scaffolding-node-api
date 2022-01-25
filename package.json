@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/src/server.js",
-    "build": "rmdir dist /Q /S & tsoa spec-and-routes & tsc"
+    "build-windows": "rmdir dist /Q /S && tsoa spec-and-routes && tsc",
+    "build-linux": "rmdir -rf dist && tsoa spec-and-routes && tsc"
   },
   "author": "Emanuel Ceballos",
   "license": "ISC",

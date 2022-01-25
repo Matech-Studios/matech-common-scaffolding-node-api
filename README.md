@@ -1,10 +1,18 @@
 # nodejs-api-rest-with-mongo-db
 
+A Node JS RESTful API boilerplate.
+
+## Technologies & packages
+
+- Express
+- TypeScript
+- MongoDB
+- [tsoa](https://tsoa-community.github.io/docs/introduction.html)
+- bcrypt for password encryption
+
 ## Node version
 
-> 8.17.0
-
-`We should update this to a newer version.`
+> 14.17.6
 
 ## Pre-requisites
 
@@ -24,7 +32,23 @@ For PRD, configure `production.json` accordingly.
 
 ```
 npm install
+npm run build
 npm start
 ```
 
 Open a browser or Postman: http://localhost:3000/api/v1/users
+
+---
+
+## Key Features
+
+- 3 layer microservice architecture
+- S.O.L.I.D principles
+- Swagger with automatic controller detection
+- MongoDB connection ready
+- Docker support
+
+## What's coming next?
+
+- JWT security
+- Logging
