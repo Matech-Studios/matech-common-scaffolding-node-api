@@ -1,13 +1,13 @@
-import * as jwt from 'jsonwebtoken';
-import * as bcrypt from 'bcrypt';
-import UserRequest from '../api/contracts/requests/user_request';
-import * as config from 'config';
-import UserSchema from '../repository/models/user_model';
-import UserDto from '../core/interfaces/user_interface';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import UserRequest from '../api/contracts/requests/userRequest';
+import config from 'config';
+import UserSchema from '../repository/models/userModel';
+import User from '../core/entities/user';
 
 export default {
 
-    login: async (userRequest: UserRequest): Promise<UserDto> => {
+    login: async (userRequest: UserRequest): Promise<User> => {
 
         const dbUser: any = await UserSchema
             .findOne({
@@ -38,7 +38,7 @@ export default {
                 expiresIn: config.get('configToken.expiration')
             });
 
-        const userDto: UserDto = {
+        const userDto: User = {
             _id: dbUser._id,
             name: dbUser.name,
             email: dbUser.email,

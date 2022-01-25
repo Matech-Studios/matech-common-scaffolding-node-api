@@ -1,20 +1,18 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import UserDto from '../../core/interfaces/user_interface';
-import UserRequest from '../contracts/requests/user_request';
-import authService from '../../service/auth_service';
-import UserLoginResponse from '../contracts/responses/user_login_response';
+import User from '../../core/entities/user';
+import UserRequest from '../contracts/requests/userRequest';
+import authService from '../../service/authService';
+import UserLoginResponse from '../contracts/responses/userLoginResponse';
 
 const routes = Router();
 
 routes.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
-    // #swagger.tags = ['auth']
-
     try {
         const loginErrorMessage = 'Incorrect user or password.';
         const userContract: UserRequest = req.body;
 
-        const user: UserDto = await authService.login(userContract);
+        const user: User = await authService.login(userContract);
 
         if (!user) {
             return res.status(400).json({
@@ -28,7 +26,7 @@ routes.post('/', async (req: Request, res: Response, next: NextFunction) => {
                 email: user.email,
                 name: user.name
             },
-            token: user.token
+            token: user.token!
         }
 
         return res.json(userResponse);

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import userSchemaValidation from './user_schema_validation';
+import userSchemaValidation from './userSchemaValidation';
 
 export default {
     validateUser: (req: Request, res: Response, next: NextFunction) => {
