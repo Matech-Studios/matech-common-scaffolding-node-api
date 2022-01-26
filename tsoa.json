@@ -1,12 +1,22 @@
 {
     "entryFile": "src/server.ts",
     "noImplicitAdditionalProperties": "throw-on-extras",
-    "controllerPathGlobs": ["src/**/*Controller.ts"],
+    "controllerPathGlobs": [
+        "src/**/*Controller.ts"
+    ],
     "spec": {
         "outputDirectory": "dist",
-        "specVersion": 3
+        "specVersion": 3,
+        "securityDefinitions": {
+            "jwtAuth": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
     },
     "routes": {
-        "routesDir": "dist"
+        "routesDir": "dist",
+        "authenticationModule": "./src/api/middlewares/authentication.ts"
     }
 }

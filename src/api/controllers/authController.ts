@@ -1,22 +1,35 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import User from '../../core/entities/user';
-import UserRequest from '../contracts/requests/userRequest';
+import {
+    Body,
+    Controller,
+    Post,
+    Route,
+    SuccessResponse,
+    Res,
+    Response,
+    Tags,
+    TsoaResponse,
+} from "tsoa";
+import UserEntity from '../../core/entities/userEntity';
 import authService from '../../service/authService';
-import UserLoginResponse from '../contracts/responses/userLoginResponse';
+import ErrorResponse from "../contracts/responses/errorResponse";
+import UserLoginResponse from "../contracts/responses/userLoginResponse";
+import UserLoginRequest from "../contracts/requests/userLoginRequest";
 
-const routes = Router();
+@Route("api/v1/auth")
+@Tags("auth")
+export class AuthController extends Controller {
 
-routes.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    @Post("")
+    @SuccessResponse("200", "OK")
+    @Response<ErrorResponse>(400, 'Incorrect user or password.')
+    @Response<ErrorResponse>(500, 'Internal server error.')
+    public async loginUser(@Body() userRequest: UserLoginRequest, @Res() incorrectUserOrPassword: TsoaResponse<400, ErrorResponse>): Promise<UserLoginResponse> {
 
-    try {
-        const loginErrorMessage = 'Incorrect user or password.';
-        const userContract: UserRequest = req.body;
-
-        const user: User = await authService.login(userContract);
+        const user: UserEntity = await authService.login(userRequest);
 
         if (!user) {
-            return res.status(400).json({
-                error: loginErrorMessage
+            return incorrectUserOrPassword(400, {
+                error: "Incorrect user or password."
             });
         }
 
@@ -29,10 +42,6 @@ routes.post('/', async (req: Request, res: Response, next: NextFunction) => {
             token: user.token!
         }
 
-        return res.json(userResponse);
-    } catch (e) {
-        next(e);
+        return userResponse;
     }
-});
-
-export default routes;
+}

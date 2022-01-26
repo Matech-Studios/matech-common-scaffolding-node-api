@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import db from './repository/db/dbConnection';
 import bodyParser from "body-parser";
 import { RegisterRoutes } from "../dist/routes";
-import customErrorsResponse from './api/utils/customErrorsResponse';
+import customErrorsResponse from './api/customErrors/customErrorsResponse';
 import swaggerUi from "swagger-ui-express";
 
 db.connect();

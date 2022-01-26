@@ -1,4 +1,4 @@
-interface User {
+interface UserEntity {
     _id: string;
     email: string;
     name: string;
@@ -8,4 +8,4 @@ interface User {
     token?: string;
 }
 
-export default User;
+export default UserEntity;

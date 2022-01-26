@@ -1,20 +1,20 @@
 import bcrypt from 'bcrypt';
 import UserRequest from '../api/contracts/requests/userRequest';
 import UserUpdateRequest from '../api/contracts/requests/userUpdateRequest';
-import User from '../core/entities/user';
+import UserEntity from '../core/entities/userEntity';
 import UserSchema from '../repository/models/userModel';
 
 export default {
 
-    listActiveUsers: async (): Promise<User[]> => {
+    listActiveUsers: async (): Promise<UserEntity[]> => {
         return await
             UserSchema
                 .find({ 'status': true })
                 .select({ name: 1, email: 1 });
     },
 
-    findByEmail: async (email: string): Promise<User> => {
-        const userResult: User = await UserSchema.findOne({ email }, (err: any, user: User) => {
+    findByEmail: async (email: string): Promise<UserEntity> => {
+        const userResult: UserEntity = await UserSchema.findOne({ email }, (err: any, user: UserEntity) => {
             if (err) {
                 console.log(err);
                 return null;
@@ -40,7 +40,7 @@ export default {
         return userCreated !== undefined;
     },
 
-    updateUser: async (email: string, userRequest: UserUpdateRequest): Promise<User> => {
+    updateUser: async (email: string, userRequest: UserUpdateRequest): Promise<UserEntity> => {
 
         let userToUpdate: any = {
             name: userRequest.name
@@ -51,7 +51,7 @@ export default {
             userToUpdate.password = hashedPassword;
         }
 
-        const user: User = await UserSchema.findOneAndUpdate({ 'email': email }, {
+        const user: UserEntity = await UserSchema.findOneAndUpdate({ 'email': email }, {
             $set: userToUpdate
         }, {
             new: true
@@ -60,9 +60,9 @@ export default {
         return user;
     },
 
-    deactivateUser: async (email: string): Promise<User> => {
+    deactivateUser: async (email: string): Promise<UserEntity> => {
 
-        const user: User = await UserSchema.findOneAndUpdate({ 'email': email }, {
+        const user: UserEntity = await UserSchema.findOneAndUpdate({ 'email': email }, {
             $set: {
                 status: false
             }

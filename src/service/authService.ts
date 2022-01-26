@@ -3,11 +3,12 @@ import bcrypt from 'bcrypt';
 import UserRequest from '../api/contracts/requests/userRequest';
 import config from 'config';
 import UserSchema from '../repository/models/userModel';
-import User from '../core/entities/user';
+import UserEntity from '../core/entities/userEntity';
+import UserLoginRequest from '../api/contracts/requests/userLoginRequest';
 
 export default {
 
-    login: async (userRequest: UserRequest): Promise<User> => {
+    login: async (userRequest: UserLoginRequest): Promise<UserEntity> => {
 
         const dbUser: any = await UserSchema
             .findOne({
@@ -38,7 +39,7 @@ export default {
                 expiresIn: config.get('configToken.expiration')
             });
 
-        const userDto: User = {
+        const userDto: UserEntity = {
             _id: dbUser._id,
             name: dbUser.name,
             email: dbUser.email,

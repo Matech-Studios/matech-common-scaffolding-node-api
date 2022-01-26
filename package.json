@@ -1,12 +1,12 @@
 {
   "name": "matech-common-scaffolding-node-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Matech Scaffolding API",
   "main": "./dsit/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/src/server.js",
-    "build-windows": "rmdir dist /Q /S && tsoa spec-and-routes && tsc",
+    "build-windows": "rmdir dist /Q /S & tsoa spec-and-routes && tsc",
     "build-linux": "rmdir -rf dist && tsoa spec-and-routes && tsc"
   },
   "author": "Emanuel Ceballos",
