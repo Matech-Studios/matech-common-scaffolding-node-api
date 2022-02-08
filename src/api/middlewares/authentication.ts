@@ -9,7 +9,7 @@ export function expressAuthentication(
     securityName: string,
     scopes?: string[]
 ): Promise<any> {
-    if (securityName === "jwt") {
+    if (securityName === "api_key") {
 
         const token: string =
             request.body.token ||

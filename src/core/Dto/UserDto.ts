@@ -1,5 +1,5 @@
-interface UserEntity {
-    id: string;
+export interface UserDto {
+    _id?: string;
     email: string;
     name: string;
     password?: string;
@@ -7,5 +7,3 @@ interface UserEntity {
     image?: string;
     token?: string;
 }
-
-export default UserEntity;

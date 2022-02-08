@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import {
     Body,
     Controller,
@@ -14,29 +15,46 @@ import {
     Tags,
     TsoaResponse,
 } from "tsoa";
-import UserEntity from '../../core/entities/userEntity';
-import userService from '../../service/userService';
+import UserEntity from '../../core/entities/UserEntity';
 import ErrorResponse from "../contracts/responses/errorResponse";
 import UserResponse from "../contracts/responses/userResponse";
 import UserRequest from "../contracts/requests/userRequest";
 import UserUpdateRequest from "../contracts/requests/userUpdateRequest";
+import { IUserService } from "../../core/serviceInterfaces";
+import { inject } from "inversify";
+import { provideSingleton } from "../../util/provideSingleton";
 
+@provideSingleton(UsersController)
 @Route("api/v1/users")
 @Tags("users")
 export class UsersController extends Controller {
 
+    private readonly userService: IUserService;
+
+    constructor(
+        @inject(Symbol.for("IUserService"))
+        userService: IUserService
+    ) {
+        super();
+
+        this.userService = userService;
+    }
+
+    /**
+     * Returns all active users.
+     */
     @Get("")
     @Response<ErrorResponse>(500, 'Internal server error.')
     public async getUsers(): Promise<UserResponse[]> {
 
-        const users: UserEntity[] = await userService.listActiveUsers();
+        const users: UserEntity[] = await this.userService.listActiveUsers();
 
         if (users) {
 
             let usersResponse: UserResponse[] = [];
             users.map((u: UserEntity, i: number) => {
                 usersResponse[i] = {
-                    _id: u._id,
+                    _id: u.id,
                     email: u.email,
                     name: u.name
                 };
@@ -54,15 +72,15 @@ export class UsersController extends Controller {
     @Response<ErrorResponse>(500, 'Internal server error.')
     public async createUser(@Body() userRequest: UserRequest, @Res() userExists: TsoaResponse<400, ErrorResponse>): Promise<void> {
 
-        const user: UserEntity = await userService.findByEmail(userRequest.email);
+        const user: UserEntity | null = await this.userService.findByEmail(userRequest.email);
 
-        if (user) {
+        if (user != null) {
             return userExists(400, {
                 error: "User already exists."
             });
         }
 
-        const created: boolean = await userService.createUser(userRequest);
+        const created: boolean = await this.userService.createUser(userRequest);
 
         if (created) {
             return this.setStatus(201);
@@ -72,43 +90,50 @@ export class UsersController extends Controller {
     }
 
     @Put("{email}")
+    @SuccessResponse("204", "No content")
     @Response(404, 'Not found')
     @Response(400, 'Bad request')
     @Response<ErrorResponse>(500, 'Internal server error.')
     public async updateUser(@Path() email: string, @Body() userRequest: UserUpdateRequest): Promise<void> {
 
-        const user: UserEntity = await userService.findByEmail(email);
+        const user: UserEntity | null = await this.userService.findByEmail(email);
 
         if (!user) {
             return this.setStatus(404);
         }
 
-        const updatedUser: UserEntity = await userService.updateUser(email, userRequest);
+        const updatedUser: boolean = await this.userService.updateUser(email, userRequest);
 
-        if (!updatedUser) {
+        if (updatedUser == null) {
             return this.setStatus(400);
         }
 
         return;
     }
 
+    /**
+     * Performs a soft delete on the user.
+     */
     @Delete("{email}")
-    @Security("jwt")
+    // In case scopes are required in security:
+    // @Security("jwt", ["admin"])
+    @Security("api_key")
+    @SuccessResponse("204", "No content")
     @Response(400, 'Bad request')
     @Response(401, 'Unauthorized')
     @Response(404, 'Not found')
     @Response<ErrorResponse>(500, 'Internal server error.')
     public async deleteUser(@Path() email: string): Promise<void> {
 
-        const user: UserEntity = await userService.findByEmail(email);
+        const user: UserEntity | null = await this.userService.findByEmail(email);
 
         if (!user) {
             return this.setStatus(404);
         }
 
-        const deletedUser: UserEntity = await userService.deactivateUser(email);
+        const deletedUser: boolean = await this.userService.deactivateUser(email);
 
-        if (!deletedUser) {
+        if (deletedUser == null) {
             return this.setStatus(400);
         }
 

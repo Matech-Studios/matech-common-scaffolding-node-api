@@ -37,18 +37,21 @@ npm start
 ```
 
 Open a browser or Postman: http://localhost:3000/api/v1/users
+For Swagger documentation open: http://localhost:3000/swagger/
 
 ---
 
-## Key Features
+## Highlights
 
 - 3 layer microservice architecture
 - S.O.L.I.D principles
+- Inversify for Dependency Injection
+- JWT security
 - Swagger with automatic controller detection
 - MongoDB connection ready
 - Docker support
 
 ## What's coming next?
 
-- JWT security
 - Logging
+- ORM sequelize
