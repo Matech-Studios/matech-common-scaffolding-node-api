@@ -13,7 +13,9 @@
             "runtimeArgs": [
                 "run-script",
                 "start"
-            ]
+            ],
+            "console": "internalConsole",
+            "outputCapture": "std"
         }
     ]
 }

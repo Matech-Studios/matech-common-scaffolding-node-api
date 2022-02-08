@@ -48,10 +48,11 @@ For Swagger documentation open: http://localhost:3000/swagger/
 - Inversify for Dependency Injection
 - JWT security
 - Swagger with automatic controller detection
+- Logging with tslog
+    - Request id tracking to group calls all the way down the promise chain
 - MongoDB connection ready
 - Docker support
 
 ## What's coming next?
 
-- Logging
 - ORM sequelize

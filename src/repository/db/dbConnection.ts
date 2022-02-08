@@ -1,5 +1,6 @@
 import config from 'config';
 import mongoose from 'mongoose';
+import { logger } from '../../util/asyncLocalStorageLog';
 
 export default {
 
@@ -8,8 +9,8 @@ export default {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
-            .then(() => console.log('Mongo DB connection successful'))
-            .catch(err => console.log('Mongo DB connection error...', err));
+            .then(() => logger.info('Mongo DB connection successful'))
+            .catch(err => logger.error('Mongo DB connection error...', err));
 
         mongoose.set('useCreateIndex', true);
         mongoose.set('useFindAndModify', false);

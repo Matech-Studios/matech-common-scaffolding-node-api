@@ -3,6 +3,7 @@ import { IUserRepository } from "../core/repositoryInterfaces/IUserRepository";
 import { provideSingleton } from "../util/provideSingleton";
 import bcrypt from 'bcrypt';
 import UserSchema from '../repository/models/userModel';
+import { logger } from "../util/asyncLocalStorageLog";
 
 @provideSingleton(UserRepository)
 export class UserRepository implements IUserRepository {
@@ -12,9 +13,9 @@ export class UserRepository implements IUserRepository {
     }
 
     public async findByEmailAsync(email: string): Promise<UserDto> {
-        const userResult: UserDto = await UserSchema.findOne({ email, status: true }, (err: any, user: UserDto) => {
+        const userResult: UserDto = await UserSchema.findOne({ email }, (err: any, user: UserDto) => {
             if (err) {
-                console.log(err);
+                logger.error(err);
                 return null;
             }
 
@@ -25,6 +26,7 @@ export class UserRepository implements IUserRepository {
     }
 
     public async findAsync(filter: object): Promise<UserDto[]> {
+
         return await
             UserSchema
                 .find(filter)

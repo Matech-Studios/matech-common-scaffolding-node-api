@@ -23,6 +23,7 @@ import UserUpdateRequest from "../contracts/requests/userUpdateRequest";
 import { IUserService } from "../../core/serviceInterfaces";
 import { inject } from "inversify";
 import { provideSingleton } from "../../util/provideSingleton";
+import { logger } from "../../util/asyncLocalStorageLog";
 
 @provideSingleton(UsersController)
 @Route("api/v1/users")
@@ -41,7 +42,8 @@ export class UsersController extends Controller {
     }
 
     /**
-     * Returns all active users.
+     * Gets all users from the DB filtered by their status, only active users are returned.
+     * @summary Returns all active users.
      */
     @Get("")
     @Response<ErrorResponse>(500, 'Internal server error.')
@@ -60,6 +62,7 @@ export class UsersController extends Controller {
                 };
             });
 
+            logger.info(`Total active users: ${usersResponse.length}`);
             return usersResponse;
         }
 
@@ -112,7 +115,8 @@ export class UsersController extends Controller {
     }
 
     /**
-     * Performs a soft delete on the user.
+     * This endpoint doesn't physically delete users from the DB, it flags them as inactive instead.
+     * @summary Performs a soft delete on the user.
      */
     @Delete("{email}")
     // In case scopes are required in security:
@@ -136,6 +140,8 @@ export class UsersController extends Controller {
         if (deletedUser == null) {
             return this.setStatus(400);
         }
+
+        logger.info(`User '${email}' deleted`);
 
         return;
     }

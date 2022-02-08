@@ -4,6 +4,8 @@ import bodyParser from "body-parser";
 import { RegisterRoutes } from "../dist/routes";
 import customErrorsResponse from './api/customErrors/customErrorsResponse';
 import swaggerUi from "swagger-ui-express";
+import { loggingMiddleware } from './api/middlewares/loggingMiddleware';
+import { logger } from './util/asyncLocalStorageLog';
 
 db.connect();
 
@@ -18,6 +20,8 @@ app.use(
 
 app.use(bodyParser.json());
 
+app.use(loggingMiddleware);
+
 RegisterRoutes(app);
 
 app.use("/swagger", swaggerUi.serve, async (_req: Request, res: Response) => {
@@ -28,7 +32,7 @@ app.use("/swagger", swaggerUi.serve, async (_req: Request, res: Response) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log('API REST up & running');
+    logger.info('API REST up & running');
 
     customErrorsResponse(app);
 });
