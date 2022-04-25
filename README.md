@@ -46,6 +46,12 @@ npm run build-windows
 npm start
 ```
 
+### Run Tests
+
+```
+npm test
+```
+
 Open a browser or Postman: http://localhost:3000/api/v1/users
 
 For Swagger documentation open: http://localhost:3000/swagger/

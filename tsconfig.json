@@ -5,7 +5,9 @@
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "module": "CommonJS",
         "outDir": "./dist/",
         "removeComments": true,
@@ -14,6 +16,9 @@
         "sourceMap": true,
         "strict": true,
         "target": "es6",
-        "types": ["reflect-metadata"]
+        "types": [
+            "reflect-metadata",
+            "jest"
+        ]
     }
 }
