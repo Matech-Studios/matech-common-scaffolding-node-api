@@ -72,7 +72,9 @@ For Swagger documentation open: http://localhost:3000/swagger/
 - File upload support:
     - Upload to local disk
     - Upload to AWS S3
+- Unit tests with the Jest library
 
 ## What's coming next?
 
+- Test coverage
 - ORM sequelize
