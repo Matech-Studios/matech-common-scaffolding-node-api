@@ -56,6 +56,17 @@ Open a browser or Postman: http://localhost:3000/api/v1/users
 
 For Swagger documentation open: http://localhost:3000/swagger/
 
+### Debugging Tests
+
+1. Open .vscode/laungh.json
+1. Comment the "Launch via npm" configuration
+1. Uncomment the "Jest Tests" configuration (this will allow to run the tests via debug)
+1. Save the file
+1. Open ./jest.config.ts
+1. Comment the "/dist/" path in the "testPathIgnorePatterns" property
+1. Rebuild the project
+1. Add an interruption point in your test
+1. Press F5 to run the project
 ---
 
 ## Highlights

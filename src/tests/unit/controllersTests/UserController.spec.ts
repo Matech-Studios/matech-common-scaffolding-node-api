@@ -99,6 +99,9 @@ describe('Create User', () => {
         await controller.createUser(userRequest, createUserErrorCallback);
 
         expect(userService.findByEmail).toHaveBeenCalled();
+
+        const mockedCallArgument: string[] = findByEmailMock.mock.calls[0];
+        expect(mockedCallArgument[0]).toBe(userRequest.email);
     });
 
     it('should create user', async () => {
@@ -116,6 +119,12 @@ describe('Create User', () => {
         expect(userService.findByEmail).toHaveBeenCalled();
         expect(userService.createUser).toHaveBeenCalled();
         expect(controller.getStatus()).toEqual(201);
+
+        const findMockedCallArgument: string[] = findByEmailMock.mock.calls[0];
+        expect(findMockedCallArgument[0]).toBe(userRequest.email);
+
+        const createMockedCallArgument: UserRequest[] = createUserMock.mock.calls[0];
+        expect(createMockedCallArgument[0]).toEqual(userRequest);
     });
 });
 
@@ -143,6 +152,9 @@ describe('Update user', () => {
 
         expect(userService.findByEmail).toHaveBeenCalled();
         expect(controller.getStatus()).toEqual(404);
+
+        const findMockedCallArgument: string[] = findByEmailMock.mock.calls[0];
+        expect(findMockedCallArgument[0]).toBe(userRequest.email);
     });
 
     it('should update user', async () => {
@@ -164,6 +176,13 @@ describe('Update user', () => {
         expect(userService.findByEmail).toHaveBeenCalled();
         expect(userService.updateUser).toHaveBeenCalled();
         expect(controller.getStatus()).toEqual(undefined);  // = 204 in tsoa
+
+        const findMockedCallArgument: string[] = findByEmailMock.mock.calls[0];
+        expect(findMockedCallArgument[0]).toBe(userRequest.email);
+
+        const updateMockedCallArgument: [][] = updateUserMock.mock.calls[0];
+        expect(updateMockedCallArgument[0]).toBe(userRequest.email);
+        expect(updateMockedCallArgument[1]).toEqual(userRequest);
     });
 });
 
@@ -191,6 +210,9 @@ describe('Delete user', () => {
 
         expect(userService.findByEmail).toHaveBeenCalled();
         expect(controller.getStatus()).toEqual(404);
+
+        const findMockedCallArgument: string[] = findByEmailMock.mock.calls[0];
+        expect(findMockedCallArgument[0]).toBe(userRequest.email);
     });
 
     it('should deactivate user', async () => {
@@ -212,6 +234,12 @@ describe('Delete user', () => {
         expect(userService.findByEmail).toHaveBeenCalled();
         expect(userService.deactivateUser).toHaveBeenCalled();
         expect(controller.getStatus()).toEqual(undefined);  // = 204 in tsoa
+
+        const findMockedCallArgument: string[] = findByEmailMock.mock.calls[0];
+        expect(findMockedCallArgument[0]).toBe(userRequest.email);
+
+        const deactivateMockedCallArgument: string[] = deactivateUserMock.mock.calls[0];
+        expect(deactivateMockedCallArgument[0]).toBe(userRequest.email);
     });
 });
 
