@@ -51,22 +51,17 @@ export class UserController extends Controller {
 
         const users: UserEntity[] = await this.userService.listActiveUsers();
 
-        if (users) {
+        let usersResponse: UserResponse[] = [];
+        users.map((u: UserEntity, i: number) => {
+            usersResponse[i] = {
+                _id: u.id,
+                email: u.email,
+                name: u.name
+            };
+        });
 
-            let usersResponse: UserResponse[] = [];
-            users.map((u: UserEntity, i: number) => {
-                usersResponse[i] = {
-                    _id: u.id,
-                    email: u.email,
-                    name: u.name
-                };
-            });
-
-            logger.info(`Total active users: ${usersResponse.length}`);
-            return usersResponse;
-        }
-
-        return null as any;
+        logger.info(`Total active users: ${usersResponse.length}`);
+        return usersResponse;
     }
 
     @Post("")
