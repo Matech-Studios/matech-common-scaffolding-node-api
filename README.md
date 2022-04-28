@@ -22,6 +22,13 @@ For PRD, configure `production.json` accordingly.
 
 ## Local build & run
 
+
+### Environment variable
+
+```
+NODE_ENV
+```
+
 ### Install dependencies
 
 ```
@@ -56,6 +63,13 @@ Open a browser or Postman: http://localhost:3000/api/v1/users
 
 For Swagger documentation open: http://localhost:3000/swagger/
 
+## Docker support
+
+```
+docker build -t matech-node-js .
+docker run -d -p 3000:3000 --name matech-node-js matech-node-js
+```
+
 ### Debugging Tests
 
 1. Open .vscode/laungh.json
@@ -84,8 +98,8 @@ For Swagger documentation open: http://localhost:3000/swagger/
     - Upload to local disk
     - Upload to AWS S3
 - Unit tests with the Jest library
+- Test coverage
 
 ## What's coming next?
 
-- Test coverage
 - ORM sequelize

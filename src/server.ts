@@ -32,7 +32,7 @@ app.use("/swagger", swaggerUi.serve, async (_req: Request, res: Response) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    logger.info('API REST up & running');
+    logger.info(`API REST up & running with env '${process.env.NODE_ENV}'`);
 
     customErrorsResponse(app);
 });

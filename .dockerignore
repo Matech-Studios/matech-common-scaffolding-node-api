@@ -1,2 +1,11 @@
-node_modules
 npm-debug.log
+.gitignore
+Dockerfile
+jest.config.ts
+README.md
+.git
+.github
+.vscode
+node_modules
+dist
+coverage
