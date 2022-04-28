@@ -2,7 +2,7 @@ import "reflect-metadata";
 import UserRequest from '../api/contracts/requests/UserRequest';
 import UserUpdateRequest from '../api/contracts/requests/UserUpdateRequest';
 import { UserDto } from "../core/Dto/UserDto";
-import UserEntity from '../core/entities/userEntity';
+import UserEntity from '../core/entities/UserEntity';
 import { IUserService } from '../core/serviceInterfaces';
 import { provideSingleton } from "../util/provideSingleton";
 import { IUserRepository } from "../core/repositoryInterfaces/IUserRepository";
