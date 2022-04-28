@@ -1,7 +1,9 @@
-import UserLogin from "./UserLogin";
-
 interface UserLoginResponse {
-    user: UserLogin;
+    user: {
+        _id: string;
+        name: string;
+        email: string;
+    };
     token: string;
 }
 
