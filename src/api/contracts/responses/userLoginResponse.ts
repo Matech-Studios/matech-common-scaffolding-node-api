@@ -1,8 +1,4 @@
-interface UserLogin {
-    _id: string;
-    name: string;
-    email: string;
-}
+import UserLogin from "./UserLogin";
 
 interface UserLoginResponse {
     user: UserLogin;
