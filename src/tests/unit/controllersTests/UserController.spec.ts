@@ -1,8 +1,8 @@
 import { HttpStatusCodeLiteral, TsoaResponse } from 'tsoa';
-import UserRequest from '../../../api/contracts/requests/userRequest';
-import UserUpdateRequest from '../../../api/contracts/requests/userUpdateRequest';
-import ErrorResponse from '../../../api/contracts/responses/errorResponse';
-import UserResponse from '../../../api/contracts/responses/userResponse';
+import UserRequest from '../../../api/contracts/requests/UserRequest';
+import UserUpdateRequest from '../../../api/contracts/requests/UserUpdateRequest';
+import ErrorResponse from '../../../api/contracts/responses/ErrorResponse';
+import UserResponse from '../../../api/contracts/responses/UserResponse';
 import { UserController } from '../../../api/controllers';
 import UserEntity from '../../../core/entities/UserEntity';
 import { IUserService } from '../../../core/serviceInterfaces';

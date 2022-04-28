@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import UserRequest from '../api/contracts/requests/userRequest';
-import UserUpdateRequest from '../api/contracts/requests/userUpdateRequest';
+import UserRequest from '../api/contracts/requests/UserRequest';
+import UserUpdateRequest from '../api/contracts/requests/UserUpdateRequest';
 import { UserDto } from "../core/Dto/UserDto";
 import UserEntity from '../core/entities/userEntity';
 import { IUserService } from '../core/serviceInterfaces';

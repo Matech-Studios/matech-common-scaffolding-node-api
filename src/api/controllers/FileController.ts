@@ -8,7 +8,7 @@ import {
     SuccessResponse,
     Tags,
 } from "tsoa";
-import ErrorResponse from "../contracts/responses/errorResponse";
+import ErrorResponse from "../contracts/responses/ErrorResponse";
 import { IFileService } from "../../core/serviceInterfaces";
 import { inject } from "inversify";
 import { provideSingleton } from "../../util/provideSingleton";

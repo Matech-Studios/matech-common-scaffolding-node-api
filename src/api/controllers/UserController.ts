@@ -16,10 +16,10 @@ import {
     TsoaResponse,
 } from "tsoa";
 import UserEntity from '../../core/entities/UserEntity';
-import ErrorResponse from "../contracts/responses/errorResponse";
-import UserResponse from "../contracts/responses/userResponse";
-import UserRequest from "../contracts/requests/userRequest";
-import UserUpdateRequest from "../contracts/requests/userUpdateRequest";
+import ErrorResponse from "../contracts/responses/ErrorResponse";
+import UserResponse from "../contracts/responses/UserResponse";
+import UserRequest from "../contracts/requests/UserRequest";
+import UserUpdateRequest from "../contracts/requests/UserUpdateRequest";
 import { IUserService } from "../../core/serviceInterfaces";
 import { inject } from "inversify";
 import { provideSingleton } from "../../util/provideSingleton";

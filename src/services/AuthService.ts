@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import config from 'config';
 import UserEntity from '../core/entities/UserEntity';
-import UserLoginRequest from '../api/contracts/requests/userLoginRequest';
+import UserLoginRequest from '../api/contracts/requests/UserLoginRequest';
 import { IAuthService } from '../core/serviceInterfaces/IAuthService';
 import { provideSingleton } from '../util/provideSingleton';
 import { IUserRepository } from '../core/repositoryInterfaces/IUserRepository';

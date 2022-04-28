@@ -1,6 +1,6 @@
 import UserEntity from '../entities/UserEntity';
-import UserRequest from '../../api/contracts/requests/userRequest';
-import UserUpdateRequest from '../../api/contracts/requests/userUpdateRequest';
+import UserRequest from '../../api/contracts/requests/UserRequest';
+import UserUpdateRequest from '../../api/contracts/requests/UserUpdateRequest';
 
 export interface IUserService {
     listActiveUsers(): Promise<UserEntity[]>;

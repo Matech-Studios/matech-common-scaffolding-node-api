@@ -1,6 +1,6 @@
 import { HttpStatusCodeLiteral, TsoaResponse } from "tsoa";
-import UserLoginRequest from "../../../api/contracts/requests/userLoginRequest";
-import ErrorResponse from "../../../api/contracts/responses/errorResponse";
+import UserLoginRequest from "../../../api/contracts/requests/UserLoginRequest";
+import ErrorResponse from "../../../api/contracts/responses/ErrorResponse";
 import { AuthController } from "../../../api/controllers";
 import UserEntity from "../../../core/entities/UserEntity";
 import { IAuthService } from "../../../core/serviceInterfaces";

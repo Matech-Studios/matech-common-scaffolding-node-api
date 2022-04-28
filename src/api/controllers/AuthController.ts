@@ -11,9 +11,9 @@ import {
     TsoaResponse,
 } from "tsoa";
 import UserEntity from '../../core/entities/UserEntity';
-import ErrorResponse from "../contracts/responses/errorResponse";
-import UserLoginResponse from "../contracts/responses/userLoginResponse";
-import UserLoginRequest from "../contracts/requests/userLoginRequest";
+import ErrorResponse from "../contracts/responses/ErrorResponse";
+import UserLoginResponse from "../contracts/responses/UserLoginResponse";
+import UserLoginRequest from "../contracts/requests/UserLoginRequest";
 import { IAuthService } from "../../core/serviceInterfaces";
 import { inject } from "inversify";
 import { provideSingleton } from "../../util/provideSingleton";
