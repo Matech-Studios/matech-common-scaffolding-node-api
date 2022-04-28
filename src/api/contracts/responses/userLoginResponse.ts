@@ -1,9 +1,11 @@
+interface UserLogin {
+    _id: string;
+    name: string;
+    email: string;
+}
+
 interface UserLoginResponse {
-    user: {
-        _id: string;
-        name: string;
-        email: string;
-    };
+    user: UserLogin;
     token: string;
 }
 
